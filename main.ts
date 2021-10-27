@@ -19,6 +19,9 @@ export default class MyPlugin extends Plugin {
 						// Checks if the user has selected something.
 						if (editor.somethingSelected() == true) {
 							let selectedText = editor.getSelection()
+							editor.replaceSelection(`<mark style="background-color: yellow">${selectedText}</mark>`, selectedText)
+
+							//editor.replaceSelection('dick', selectedText);
 							console.log(selectedText);
 						}
 					}
