@@ -1,5 +1,46 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
+export default class MyPlugin extends Plugin {
+
+	async onload() {
+
+		this.addCommand({
+			id: 'open-sample-modal-simple',
+			name: 'Insert highlight',
+			editorCheckCallback: (checking: boolean, editor: Editor, view: MarkdownView) => {
+				const leaf = this.app.workspace.activeLeaf;
+
+				// This checks if there currently is an active pane.
+				if (leaf) {
+
+					// If checking is false, then this action should be performed.
+					if (!checking)
+					{
+						// Checks if the user has selected something.
+						if (editor.somethingSelected() == true) {
+							let selectedText = editor.getSelection()
+							console.log(selectedText);
+						}
+					}
+
+					// This makes it so the command is shown.
+					return true;
+				}
+
+				// This makes it so the command is not shown.
+				return false;
+			}
+		});
+	}
+
+	onunload() {
+
+	}
+}
+
+/*
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+
 interface MyPluginSettings {
 	mySetting: string;
 }
@@ -19,6 +60,7 @@ export default class MyPlugin extends Plugin {
 			// Called when the user clicks the icon.
 			new Notice('This is a notice!');
 		});
+
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
@@ -34,6 +76,7 @@ export default class MyPlugin extends Plugin {
 				new SampleModal(this.app).open();
 			}
 		});
+
 		// This adds an editor command that can perform some operation on the current editor instance
 		this.addCommand({
 			id: 'sample-editor-command',
@@ -43,6 +86,7 @@ export default class MyPlugin extends Plugin {
 				editor.replaceSelection('Sample Editor Command');
 			}
 		});
+
 		// This adds a complex command that can check whether the current state of the app allows execution of the command
 		this.addCommand({
 			id: 'open-sample-modal-complex',
@@ -133,3 +177,4 @@ class SampleSettingTab extends PluginSettingTab {
 				}));
 	}
 }
+*/
